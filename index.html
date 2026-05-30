@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora Dashboard - Premium Workspace</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="A premium glassmorphic personalized dashboard with custom weather forecasting, Pomodoro focus tools, Kanban board, bookmarks, and customized widgets.">
+</head>
+<body>
+
+  <!-- Animated Ambient Background -->
+  <div class="background-canvas" id="bg-canvas">
+    <div class="glow-circle glow-1" id="glow-1"></div>
+    <div class="glow-circle glow-2" id="glow-2"></div>
+    <div class="glow-circle glow-3" id="glow-3"></div>
+  </div>
+
+  <!-- Dashboard Container -->
+  <main class="dashboard-container" id="dashboard">
+    
+    <!-- Header -->
+    <header class="header-wrapper">
+      <div class="greeting-card">
+        <h1 class="greeting-text" id="greeting-display">Good evening</h1>
+        <p class="greeting-subtext" id="greeting-subtitle">Welcome back to your workspace.</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary btn-icon" id="open-settings-btn" title="Open Settings" aria-label="Open Settings">
+          <!-- Gear Icon SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Grid of Widgets -->
+    <section class="widgets-grid" aria-label="Dashboard Widgets">
+
+      <!-- 1. Digital Clock Card -->
+      <article class="glass-card widget-clock" id="clock-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <!-- Clock Icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Clock
+          </h2>
+        </div>
+        <div class="clock-display">
+          <div class="clock-time">
+            <span id="clock-hours">00</span>:<span id="clock-minutes">00</span>:<span id="clock-seconds">00</span><span class="clock-ampm" id="clock-period">PM</span>
+          </div>
+          <div class="clock-date" id="clock-date-display">Wednesday, May 20</div>
+        </div>
+      </article>
+
+      <!-- 2. Live Weather Card -->
+      <article class="glass-card widget-weather" id="weather-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <!-- Cloud Icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+            </svg>
+            Weather
+          </h2>
+          <button class="btn btn-secondary btn-icon" id="toggle-forecast-btn" title="Toggle Forecast" aria-label="Toggle Forecast" style="padding: 0.35rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+        </div>
+        <div class="weather-main">
+          <div class="weather-info">
+            <div class="weather-temp" id="weather-temp-display">68°F</div>
+            <div class="weather-desc" id="weather-desc-display">Clear Sky</div>
+          </div>
+          <div class="weather-icon-container animated-weather-icon" id="weather-icon-svg">
+            <!-- Dynamic SVG weather icon injected by JS -->
+          </div>
+        </div>
+        
+        <!-- Expanded Details -->
+        <div class="weather-details-grid">
+          <div class="weather-detail-item">
+            <span class="weather-detail-label">Humidity</span>
+            <span class="weather-detail-value" id="weather-humidity">45%</span>
+          </div>
+          <div class="weather-detail-item">
+            <span class="weather-detail-label">Wind</span>
+            <span class="weather-detail-value" id="weather-wind">6 mph</span>
+          </div>
+          <div class="weather-detail-item">
+            <span class="weather-detail-label">UV Index</span>
+            <span class="weather-detail-value" id="weather-uv">Low</span>
+          </div>
+        </div>
+
+        <!-- 3-Day Forecast Accordion (hidden/collapsed by default) -->
+        <div class="weather-forecast-accordion" id="weather-forecast" style="display: none;">
+          <div class="forecast-row">
+            <span class="forecast-day">Tomorrow</span>
+            <span class="forecast-icon" id="forecast-icon-1"></span>
+            <span class="forecast-temps">72° / 58°</span>
+          </div>
+          <div class="forecast-row">
+            <span class="forecast-day">Friday</span>
+            <span class="forecast-icon" id="forecast-icon-2"></span>
+            <span class="forecast-temps">69° / 55°</span>
+          </div>
+          <div class="forecast-row">
+            <span class="forecast-day">Saturday</span>
+            <span class="forecast-icon" id="forecast-icon-3"></span>
+            <span class="forecast-temps">74° / 60°</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. Scratchpad / Quick Notes Card -->
+      <article class="glass-card widget-notes" id="notes-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <!-- Edit Icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"></path>
+            </svg>
+            Scratchpad
+          </h2>
+        </div>
+        <div class="notes-container">
+          <textarea class="notes-textarea" id="notes-textarea-input" placeholder="Jot down notes... (autosaves)"></textarea>
+          <div class="notes-footer">
+            <span class="notes-status" id="notes-status-text">Saved</span>
+            <div class="notes-controls">
+              <button class="btn btn-secondary btn-icon" id="toggle-monospace-btn" title="Toggle Monospace" style="padding: 0.3rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+              </button>
+              <button class="btn btn-secondary btn-icon" id="clear-notes-btn" title="Clear Note" style="padding: 0.3rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. Focus / Pomodoro Card -->
+      <article class="glass-card widget-pomodoro" id="pomodoro-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <!-- Flame / Focus Icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+            </svg>
+            Focus Timer
+          </h2>
+        </div>
+        <div class="pomodoro-container">
+          <div class="timer-modes">
+            <button class="timer-mode-btn active" data-mode="work">Focus</button>
+            <button class="timer-mode-btn" data-mode="short">Short Break</button>
+            <button class="timer-mode-btn" data-mode="long">Long Break</button>
+          </div>
+          
+          <div class="timer-visual">
+            <svg class="timer-svg" viewBox="0 0 100 100">
+              <circle class="timer-track-circle" cx="50" cy="50" r="45"></circle>
+              <circle class="timer-progress-circle" id="timer-progress-ring" cx="50" cy="50" r="45" stroke-dasharray="282.7" stroke-dashoffset="0"></circle>
+            </svg>
+            <div class="timer-text-overlay">
+              <span class="timer-time" id="timer-countdown">25:00</span>
+              <span class="timer-label" id="timer-state-label">Working</span>
+            </div>
+          </div>
+
+          <div class="timer-controls">
+            <button class="btn btn-primary" id="timer-start-btn">Start</button>
+            <button class="btn btn-secondary" id="timer-reset-btn">Reset</button>
+          </div>
+
+          <div class="timer-sound-picker">
+            <button class="sound-toggle-btn" id="ambient-sound-toggle" title="Play Ambient Noise" aria-label="Toggle Ambient Audio">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+            </button>
+            <select class="sound-dropdown" id="ambient-sound-select" aria-label="Select Ambient Sound">
+              <option value="rain">Rain Shower</option>
+              <option value="white">White Noise</option>
+              <option value="brown">Deep Brownian</option>
+              <option value="ocean">Ocean Surf</option>
+            </select>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. Kanban Task Board Card -->
+      <article class="glass-card widget-kanban" id="kanban-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <!-- Checklist/Layout Icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="9" y1="3" x2="9" y2="21"></line>
+              <line x1="15" y1="3" x2="15" y2="21"></line>
+            </svg>
+            Today's Flow
+          </h2>
+          <span class="column-counter" id="total-progress-counter">0 / 0 Done</span>
+        </div>
+        
+        <div class="kanban-layout">
+          <!-- Incoming Tasks Column -->
+          <div class="kanban-column" id="column-backlog">
+            <div class="kanban-column-header">
+              <span>Incoming tasks</span>
+              <span class="column-counter" id="count-backlog">0</span>
+            </div>
+            <div class="kanban-task-list" id="list-backlog" data-column="backlog">
+              <!-- JS Injected Task Cards -->
+            </div>
+          </div>
+
+          <!-- Active Today Column -->
+          <div class="kanban-column" id="column-today">
+            <div class="kanban-column-header">
+              <span>Focus Today</span>
+              <span class="column-counter" id="count-today">0</span>
+            </div>
+            <div class="kanban-task-list" id="list-today" data-column="today">
+              <!-- JS Injected Task Cards -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Add Task Drawer -->
+        <div class="kanban-adder-card">
+          <div class="task-input-row">
+            <input type="text" class="task-input" id="new-task-input" placeholder="Type a task and hit Enter..." aria-label="New Task Input">
+            <button class="btn btn-primary" id="add-task-btn" style="padding: 0.6rem 1rem;">Add</button>
+          </div>
+          <div class="task-adder-controls">
+            <div class="priority-selector">
+              <button class="priority-btn" data-priority="low">Low</button>
+              <button class="priority-btn active" data-priority="medium">Medium</button>
+              <button class="priority-btn" data-priority="high">High</button>
+            </div>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Double click cards to swap columns</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6. Bookmarks Card -->
+      <article class="glass-card widget-bookmarks" id="bookmarks-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <!-- Compass Icon SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg>
+            Quick Launch Bookmarks
+          </h2>
+        </div>
+        <div class="bookmarks-grid" id="bookmarks-grid-container">
+          <!-- Bookmarks tile dynamically populated -->
+          <!-- Add Button Tile -->
+          <button class="bookmark-tile bookmark-adder-tile" id="open-bookmark-modal-btn" aria-label="Add Bookmark">
+            <div class="bookmark-icon-box">＋</div>
+            <span class="bookmark-name">Add Bookmark</span>
+          </button>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- --- Settings Sidebar Panel --- -->
+  <aside class="settings-sidebar" id="settings-panel" aria-label="Settings Sidebar">
+    <div class="settings-header">
+      <h2 class="settings-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        Customize Workspace
+      </h2>
+      <button class="settings-close-btn" id="close-settings-btn" title="Close" aria-label="Close Settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="settings-body">
+      
+      <!-- Option 1: Accent Colors -->
+      <section class="settings-section">
+        <span class="settings-label">Color Themes</span>
+        <div class="theme-palettes" id="swatch-container">
+          <button class="theme-swatch swatch-teal active" data-hue="165" title="Teal Lagoon" aria-label="Select Teal Lagoon Theme"></button>
+          <button class="theme-swatch swatch-violet" data-hue="280" title="Violet Nebula" aria-label="Select Violet Nebula Theme"></button>
+          <button class="theme-swatch swatch-solar" data-hue="35" title="Solar Flare" aria-label="Select Solar Flare Theme"></button>
+          <button class="theme-swatch swatch-cyan" data-hue="195" title="Cyber Cyan" aria-label="Select Cyber Cyan Theme"></button>
+          <button class="theme-swatch swatch-peach" data-hue="350" title="Cosmic Peach" aria-label="Select Cosmic Peach Theme"></button>
+        </div>
+      </section>
+
+      <!-- Option 2: Glass Panel Opacity -->
+      <section class="settings-section">
+        <span class="settings-label">Glass Opacity</span>
+        <div class="slider-group">
+          <div class="slider-labels">
+            <span>Transparent</span>
+            <span id="opacity-value-label">45%</span>
+          </div>
+          <input type="range" class="settings-slider" id="opacity-slider" min="15" max="85" value="45" aria-label="Glass Card Opacity">
+        </div>
+      </section>
+
+      <!-- Option 3: Ambient Drift Speed -->
+      <section class="settings-section">
+        <span class="settings-label">Background Flow</span>
+        <div class="slider-group">
+          <div class="slider-labels">
+            <span>Slow Calm</span>
+            <span id="speed-value-label">Medium</span>
+          </div>
+          <input type="range" class="settings-slider" id="speed-slider" min="10" max="60" value="25" aria-label="Background Flow Speed">
+        </div>
+      </section>
+
+      <!-- Option 4: User Profile Custom Greeting -->
+      <section class="settings-section">
+        <span class="settings-label">Personalize Name</span>
+        <input type="text" class="modal-input" id="settings-name-input" placeholder="Enter your name..." value="Captain" aria-label="User name input">
+      </section>
+
+    </div>
+  </aside>
+
+  <!-- --- Bookmark Ingestion Modal --- -->
+  <dialog class="modal-overlay" id="bookmark-modal" aria-modal="true" aria-label="Add New Bookmark Dialog">
+    <div class="modal-content">
+      <div class="modal-header">New Launchpad Bookmark</div>
+      <div class="modal-inputs">
+        <div class="modal-input-group">
+          <label for="bookmark-title-input">Site Title</label>
+          <input type="text" class="modal-input" id="bookmark-title-input" placeholder="e.g. GitHub">
+        </div>
+        <div class="modal-input-group">
+          <label for="bookmark-url-input">Web Address (URL)</label>
+          <input type="url" class="modal-input" id="bookmark-url-input" placeholder="https://github.com">
+        </div>
+        <div class="modal-input-group">
+          <label for="bookmark-emoji-input">Symbol / Icon Emoji</label>
+          <input type="text" class="modal-input" id="bookmark-emoji-input" placeholder="💻" maxlength="4">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="close-bookmark-modal-btn">Cancel</button>
+        <button class="btn btn-primary" id="save-bookmark-btn">Save Link</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
